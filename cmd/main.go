@@ -1,7 +1,7 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
 	"github.com/Muha113/airbnb-service/pkg/server"
 	"github.com/sirupsen/logrus"
@@ -12,11 +12,8 @@ func main() {
 	if err != nil {
 		logrus.Fatal(err)
 	}
-
 	addr := srv.Cfg.Host + ":" + srv.Cfg.Port
-
-	logrus.Info("Starting server on -> ", addr)
-	if err = http.ListenAndServe(addr, srv.Router); err != nil {
-		logrus.Fatal(err)
+	if err = srv.Start(addr); err != nil {
+		log.Fatal(err)
 	}
 }
