@@ -1,10 +1,11 @@
 package server
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/Muha113/airbnb-service/pkg/config"
-	"github.com/Muha113/airbnb-service/pkg/handlers"
+	"github.com/Muha113/airbnb-service/pkg/models"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )
@@ -60,5 +61,34 @@ func (s *Server) configureLogger() error {
 }
 
 func (s *Server) configureRouter() {
-	s.Router.HandleFunc("/register", handlers.Login()).Methods("POST")
+	s.Router.HandleFunc("/register", s.Registrate()).Methods("POST")
+}
+
+// Registrate : provides registration of user
+func (s *Server) Registrate() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		var user models.User
+		err := json.NewDecoder(r.Body).Decode(&user)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			s.Logger.Error(err)
+			return
+		}
+
+		// TODO: save user to db
+
+		s.Logger.Info("added user " + user.Username)
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(user)
+	}
+}
+
+// GetAllLodgings : returns all lodgings
+func (s *Server) GetAllLodgings() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
+		//TODO: get all lodgins from db and encode it
+	}
 }
