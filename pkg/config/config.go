@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 )
@@ -21,6 +22,8 @@ func NewConfig(cfg string, obj interface{}) error {
 	if err != nil {
 		return err
 	}
+
+	fmt.Println("Ну кстати нихуева выглядит")
 
 	return nil
 }

@@ -68,3 +68,5 @@ type BookingTime struct {
 	ToDate   time.Time `json:"to_date"`
 	Lodging  *Lodging  `json:"lodging"`
 }
+
+type EbatSilno struct{}

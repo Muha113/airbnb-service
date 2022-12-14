@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/Muha113/airbnb-service/pkg/server"
@@ -16,4 +17,5 @@ func main() {
 	if err = srv.Start(addr); err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("Нихуя себе много сделали")
 }
